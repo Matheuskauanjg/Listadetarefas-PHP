@@ -10,7 +10,6 @@ if (!isset($_SESSION['usuario_id'])) {
 $filtro_status = $_GET['status'] ?? 'todos';
 $filtro_prioridade = $_GET['prioridade'] ?? 'todos';
 
-// Buscar tarefas do usuário
 try {
     $query = "SELECT * FROM tarefas WHERE usuario_id = :usuario_id";
     $params = [':usuario_id' => $_SESSION['usuario_id']];
@@ -34,7 +33,6 @@ try {
     die("Erro ao carregar tarefas: " . $e->getMessage());
 }
 
-// Adicionar nova tarefa
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $erros = [];
     $titulo = trim($_POST['titulo']);
