@@ -6,7 +6,6 @@ $erros = [];
 $sucesso = false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
-    // Fase 1: Solicitação de recuperação
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -23,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
                 $stmt = $pdo->prepare('UPDATE usuarios SET reset_token = ?, reset_expira = ? WHERE email = ?');
                 $stmt->execute([$token, $expira_em, $email]);
 
-                // Simular envio de email (substituir com SMTP real)
                 $link = "http://localhost/recuperar_senha.php?token=$token";
                 $sucesso = true;
             }
@@ -34,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nova_senha'])) {
-    // Fase 2: Redefinição de senha
     $token = $_POST['token'];
     $nova_senha = $_POST['nova_senha'];
     $confirma_senha = $_POST['confirma_senha'];
@@ -68,7 +65,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nova_senha'])) {
     }
 }
 
-// Verificar token via GET
 $token_valido = false;
 if (isset($_GET['token'])) {
     try {
