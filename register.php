@@ -10,7 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $senha = $_POST['senha'];
     $confirma_senha = $_POST['confirma_senha'];
 
-    // Validações
     if (empty($username)) {
         $erros[] = "Nome de usuário é obrigatório";
     }
@@ -27,7 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $erros[] = "As senhas não coincidem";
     }
 
-    // Verifica se usuário/email já existe
     if (empty($erros)) {
         try {
             $stmt = $pdo->prepare('SELECT id FROM usuarios WHERE username = ? OR email = ?');
@@ -40,7 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Registra o usuário
     if (empty($erros)) {
         $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
         
