@@ -9,7 +9,6 @@ if (!isset($_SESSION['usuario_id'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tarefa_id'])) {
     try {
-        // Verifica se a tarefa pertence ao usuário
         $stmt = $pdo->prepare('SELECT status FROM tarefas WHERE id = ? AND usuario_id = ?');
         $stmt->execute([$_POST['tarefa_id'], $_SESSION['usuario_id']]);
         $tarefa = $stmt->fetch();
